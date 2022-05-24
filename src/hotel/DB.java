@@ -35,4 +35,17 @@ public class DB
 			ex.printStackTrace();
 		}
 	}
+	
+	//모든 insert문을 실행하는 메소드
+	public static void insertAnyQuery(String sql) 
+	{
+		try {
+			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			stmt.executeUpdate(sql);	
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL exec error in executeAnyQuery(): " + ex.getMessage() );
+			System.out.println("에러구문: " + sql);
+			ex.printStackTrace();
+		}
+	}
 }

@@ -65,8 +65,8 @@ public class HotelSystemInitialization
 		   "primary key(reservation_num)"+
 		");",
 		
-		"drop table if exists reservationCancellation;",
-		"create table reservationCancellation("+
+		"drop table if exists reservation_cancellation;",
+		"create table reservation_cancellation("+
 		   "reservation_cancellation_num int,"+
 		   "cancellation_charge int,"+
 		   "cancellation_date date,"+
@@ -81,15 +81,62 @@ public class HotelSystemInitialization
 		   "primary key(reservation_cancellation_num)"+
 		");"
 	};
-	
+	static String[] insertDefaultDataSqls= {
+			"insert into customer values('guest1', 'paswd', '나수영', '010-1111-1111', 'nsy1111@gmail.com');",
+			"insert into customer values('guest2', 'paswd', '이모라', '010-1234-1171', 'emr1111@gmail.com');",
+			"insert into customer values('guest3', 'paswd', '최영재', '010-5678-1311', 'cyj1111@gmail.com');",
+			"insert into customer values('guest4', 'paswd', '전새롬', '010-3344-1181', 'jsr1111@gmail.com');",
+			"insert into customer values('guest5', 'paswd', '나미리', '010-1566-1112', 'mmr1111@gmail.com');",
+			
+			"insert into hotel_owner values('owner1', 'passwd11', '홍길동', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner2', 'passwd11', '최주호', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner3', 'passwd11', '차승윤', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner4', 'passwd11', '전은재', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner5', 'passwd11', '최준혁', '010-1111-1111', '123456-1234567');",
+			
+			"insert into hotel values('한신호텔', '경기도 화성시 병점동', '010-1111-1111', 5, 'owner1', '2015-10-29');",
+			"insert into hotel values('힐든 가든인 서울 강남', '서울특별시 서초구 강남대로 253', '010-1111-1111', 5, 'owner2', '2015-11-09');",
+			"insert into hotel values('속초 컨피네스 비치 호텔', '강원도 속초시 해오름로 171', '010-1111-1111', 5, 'owner3', '2016-03-20');",
+			"insert into hotel values('신라스테이 삼성', '서울특별시 강남구 영동대로 506', '010-1111-1111', 5, 'owner4', '2016-05-11');",
+			"insert into hotel values('호텔 아르떼', '경기도 수원시 팔달구 인계로108번길 37', '010-1111-1111', 5, 'owner5', '2016-12-25');",
+			
+			"insert into room values('한신호텔', 101, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('한신호텔', 102, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('한신호텔', 201, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('한신호텔', 202, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('한신호텔', 301, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('한신호텔', 302, '2015-10-29', 2, 80000, 18);",
+			"insert into room values('힐든 가든인 서울 강남', 101, '2015-11-09', 2, 120000, 22);",
+			"insert into room values('힐든 가든인 서울 강남', 102, '2015-11-09', 2, 120000, 22);",
+			"insert into room values('힐든 가든인 서울 강남', 103, '2015-11-09', 2, 120000, 22);",
+			"insert into room values('속초 컨피네스 비치 호텔', 101, '2016-03-20', 3, 100000, 18);",
+			"insert into room values('속초 컨피네스 비치 호텔', 102, '2016-03-20', 3, 100000, 18);",
+			"insert into room values('신라스테이 삼성', 101, '2016-05-11', 2, 100000, 16);",
+			"insert into room values('신라스테이 삼성', 102, '2016-05-11', 2, 100000, 16);",
+			"insert into room values('신라스테이 삼성', 201, '2016-05-11', 2, 100000, 16);",
+			"insert into room values('신라스테이 삼성', 202, '2016-05-11', 2, 100000, 16);",
+			"insert into room values('호텔 아르떼', 101, '2016-12-25', 2, 90000, 20);",
+			"insert into room values('호텔 아르떼', 102, '2016-12-25', 2, 90000, 20);",
+			"insert into room values('호텔 아르떼', 103, '2016-12-25', 2, 90000, 20);",
+			
+			"insert into reservation_cancellation values(1, 20000, '2022-03-04', '한신호텔', 101, 'owner1', '2022-03-01', '2022-03-22', '2022-03-23', '신용카드', 3);",
+			"insert into reservation_cancellation values(2, 25000, '2022-04-04', '신라스테이 삼성', 101, 'owner2', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);"
+	};
 	public static void main(String[] args) {
 		createInitialHotelDatabase();
+		insertDefaultData();
 		System.out.print("asdfasdf");
 	}
 	static void createInitialHotelDatabase() {
 		DB.loadConnect("mysql");
 		for (String sql : createDatabaseCreateTableSqls) {
 			DB.executeAnyQuery(sql);
+		}
+	}
+	static void insertDefaultData() {
+		DB.loadConnect("hotelreserve");
+		for (String sql : insertDefaultDataSqls) {
+			DB.insertAnyQuery(sql);
 		}
 	}
 }
