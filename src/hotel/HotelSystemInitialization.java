@@ -82,17 +82,17 @@ public class HotelSystemInitialization
 		");"
 	};
 	static String[] insertDefaultDataSqls= {
-			"insert into customer values('guest1', 'paswd', '나수영', '010-1111-1111', 'nsy1111@gmail.com');",
-			"insert into customer values('guest2', 'paswd', '이모라', '010-1234-1171', 'emr1111@gmail.com');",
-			"insert into customer values('guest3', 'paswd', '최영재', '010-5678-1311', 'cyj1111@gmail.com');",
-			"insert into customer values('guest4', 'paswd', '전새롬', '010-3344-1181', 'jsr1111@gmail.com');",
-			"insert into customer values('guest5', 'paswd', '나미리', '010-1566-1112', 'mmr1111@gmail.com');",
+			"insert into customer values('guest1', '" + "passwd6".hashCode() + "', '나수영', '010-1111-1111', 'nsy1111@gmail.com');",
+			"insert into customer values('guest2', '" + "passwd7".hashCode() + "', '이모라', '010-1234-1171', 'emr1111@gmail.com');",
+			"insert into customer values('guest3', '" + "passwd8".hashCode() + "', '최영재', '010-5678-1311', 'cyj1111@gmail.com');",
+			"insert into customer values('guest4', '" + "passwd9".hashCode() + "', '전새롬', '010-3344-1181', 'jsr1111@gmail.com');",
+			"insert into customer values('guest5', '" + "passwd10".hashCode() + "', '나미리', '010-1566-1112', 'mmr1111@gmail.com');",
 			
-			"insert into hotel_owner values('owner1', 'passwd11', '홍길동', '010-1111-1111', '123456-1234567');",
-			"insert into hotel_owner values('owner2', 'passwd11', '최주호', '010-1111-1111', '123456-1234567');",
-			"insert into hotel_owner values('owner3', 'passwd11', '차승윤', '010-1111-1111', '123456-1234567');",
-			"insert into hotel_owner values('owner4', 'passwd11', '전은재', '010-1111-1111', '123456-1234567');",
-			"insert into hotel_owner values('owner5', 'passwd11', '최준혁', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner1', '" + "passwd1".hashCode() + "', '홍길동', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner2', '" + "passwd2".hashCode() + "', '최주호', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner3', '" + "passwd3".hashCode() + "', '차승윤', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner4', '" + "passwd4".hashCode() + "', '전은재', '010-1111-1111', '123456-1234567');",
+			"insert into hotel_owner values('owner5', '" + "passwd5".hashCode() + "', '최준혁', '010-1111-1111', '123456-1234567');",
 			
 			"insert into hotel values('한신호텔', '경기도 화성시 병점동', '010-1111-1111', 5, 'owner1', '2015-10-29');",
 			"insert into hotel values('힐든 가든인 서울 강남', '서울특별시 서초구 강남대로 253', '010-1111-1111', 5, 'owner2', '2015-11-09');",
