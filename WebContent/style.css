@@ -1,0 +1,128 @@
+/*
+:root {
+    --text-color : #f0f4f5;  톤다운된 흰색
+    --background-color : #263343;
+    --accent-color :  #d49466;
+}
+
+a{
+    color : var(--text-color);
+}
+*/
+
+html,
+body {
+  margin: auto;
+  box-sizing: border-box;
+  padding-top: 2rem;
+}
+
+.container{
+  width: 80%;
+  height: 600px;
+}
+
+.button_info{
+  display: inline-flex
+}
+.roomone{
+  display: inline-flex;
+}
+.room_info{
+  text-align: center;
+}
+#home {
+  width: 80%;
+  margin: 0 auto;
+}
+#home > img {
+  width: 500px;
+}
+
+#wedding > img{
+  width: 100%;
+  height: 100%;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: skyblue;
+  padding: 8px 12px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.navbar__logo {
+  font-size: 24px;
+  color: white;
+}
+.navbar__logo > span {
+  color: #d49466;
+}
+.navbar__menu {
+  display: flex;
+  list-style: none;
+  padding-left: 0px;
+}
+.navbar__menu li {
+  padding: 8px 12px;
+}
+.navbar__menu li:hover {
+  background-color: #d49466;
+  border-radius: 7px;
+}
+.navbar__icons span {
+  padding: 8px 12px;
+  color: white;
+}
+.navbar__toggleBtn {
+  position: absolute;
+  right: 32px;
+  font-size: 24px;
+  color: #d49466;
+  display: none;
+}
+
+
+/* @media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+  }
+  .navbar__menu {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    display: none;
+  }
+  .navbar__menu li {
+    width: 100%;
+    text-align: center;
+  }
+  .navbar__icons {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    display: none;
+  }
+  .navbar__toggleBtn {
+    display: block;
+  }
+  .navbar__menu.active,
+  .navbar__icons.active {
+    display: block; /*flex를 사용해되 됨" 
+  }*/
+  /* 사진 갤러리의 너비 조정 */
+  /* .container {
+    width: 100vw;
+    margin: 0;
+  } 
+} */
