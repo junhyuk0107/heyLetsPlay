@@ -34,7 +34,5 @@ public class DB
 			System.out.println("에러구문: " + sql);
 			ex.printStackTrace();
 		}
-		
 	}
-	
 }
