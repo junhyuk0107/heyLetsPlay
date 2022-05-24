@@ -30,7 +30,7 @@ public class DB
 			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			stmt.execute(sql);
 		} catch(SQLException ex ) {
-			System.err.println("\n SQL exec error in executeAnyQuery(): " + ex.getMessage() );
+			System.err.println("\n SQL execute error in executeAnyQuery(): " + ex.getMessage() );
 			System.out.println("에러구문: " + sql);
 			ex.printStackTrace();
 		}
@@ -43,9 +43,29 @@ public class DB
 			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			stmt.executeUpdate(sql);	
 		} catch(SQLException ex ) {
-			System.err.println("\n SQL exec error in executeAnyQuery(): " + ex.getMessage() );
+			System.err.println("\n SQL executeUpdate error in insertAnyQuery(): " + ex.getMessage() );
 			System.out.println("에러구문: " + sql);
 			ex.printStackTrace();
 		}
+	}
+	
+	//회원가입 customer 계정을 db에 삽입하는 메소드 
+	public static int insertCustomer(Customer customer)
+	{
+		int cnt = 0;
+		try {
+			PreparedStatement prStmt;
+			prStmt = con.prepareStatement("insert into customer values(?, ?, ?, ?, ?);" );
+			prStmt.setString(1, customer.c_id);
+			prStmt.setString(2, customer.passwd);
+			prStmt.setString(3, customer.name);
+			prStmt.setString(4, customer.cellphone);
+			prStmt.setString(5, customer.email);
+			cnt = prStmt.executeUpdate();
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertCustomer(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return cnt;
 	}
 }
