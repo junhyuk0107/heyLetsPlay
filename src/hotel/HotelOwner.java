@@ -1,6 +1,6 @@
 package hotel;
 
-public class hotelOwner
+public class HotelOwner
 {
 	String h_id;
 	String passwd;
@@ -8,7 +8,7 @@ public class hotelOwner
 	String cellphone;
 	String registration_number;
 	
-	public hotelOwner(String h_id, String passwd, String name, String cellphone, String registration_number) {
+	public HotelOwner(String h_id, String passwd, String name, String cellphone, String registration_number) {
 		this.h_id = h_id; this.passwd = Hash.SHA256(passwd); this.name = name; this.cellphone = cellphone; this.registration_number = registration_number; 
 	}
 	

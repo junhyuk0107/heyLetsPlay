@@ -27,7 +27,12 @@ if(loginRight.equals("customer")){
 }
 else if(loginRight.equals("hotel_owner")){
 	//점주 로그인
-	
+	DB.loadConnect();
+	HotelOwner hotelOwner = DB.selectHotelOwner(id, passwd);
+	if(hotelOwner == null){
+		out.print("<script>alert('id 또는 password가 올바르지 않습니다.'); window.history.go(-1);</script>"); return;
+	}
+	out.print(hotelOwner);
 }
 else{
 	out.print("<script>alert('손님과 점주중에 선택하세요'); window.history.go(-1);</script>"); return;

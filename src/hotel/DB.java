@@ -80,29 +80,37 @@ public class DB
 			prStmt.setString(1, id);
 			prStmt.setString(2, Hash.SHA256(passwd));
 			ResultSet rs = prStmt.executeQuery();
-			if(rs.wasNull() == true)
+			rs.next();
+			String name = rs.getString("name");
+			String cellphone = rs.getString("cellphone");
+			String email = rs.getString("email");
+			if(rs.wasNull())
 				return null;
-			return new Customer(id, passwd, "asdf", "asdf", "asd");
+			return new Customer(id, passwd, name, cellphone, email);
 		} catch(SQLException ex ) {
-			System.err.println("\n SQL executeUpdate error in insertCustomer(): " + ex.getMessage() );
+			System.err.println("\n SQL error in selectCustomer(): " + ex.getMessage() );
 			ex.printStackTrace();
 		}
 		return null;
 	}
 	
 	//고객으로 로그인하면 Customer객체를 반환함. 에러면 null반환
-	public static hotelOwner selectHotelOwner(String id, String passwd) {
+	public static HotelOwner selectHotelOwner(String id, String passwd) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from hotel_owner where h_id = ? and passwd = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, id);
 			prStmt.setString(2, Hash.SHA256(passwd));
 			ResultSet rs = prStmt.executeQuery();
-			rs.last();
-			if(rs.getRow() == 0)
+			rs.next();
+			String name = rs.getString("name");
+			String cellphone = rs.getString("cellphone");
+			String registration_number = rs.getString("registration_number");
+			if(rs.wasNull())
 				return null;
-			return new hotelOwner(id, passwd, "asdf", "asdf", "asd");
+			return null;
+			//return new HotelOwner(id, passwd, "asdf", "asdf", "asdf");
 		} catch(SQLException ex ) {
-			System.err.println("\n SQL executeUpdate error in insertCustomer(): " + ex.getMessage() );
+			System.err.println("\n SQL error in selectHotelOwner(): " + ex.getMessage() );
 			ex.printStackTrace();
 		}
 		return null;
