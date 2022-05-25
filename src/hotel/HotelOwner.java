@@ -15,4 +15,10 @@ public class HotelOwner
 	public String toString(){
 		return "h_id = " + this.h_id + ", passwd = " + this.passwd + ", name = " + this.name + ", cellphone = " + this.cellphone + ", registration_number = " + this.registration_number;
 	}
+	
+	public String get_h_id() { return this.name; }
+	public String get_passwd() { return this.passwd; }
+	public String get_name() { return this.name; }
+	public String get_cellphone() { return this.cellphone; }
+	public String get_registration_number() { return this.registration_number; }
 }

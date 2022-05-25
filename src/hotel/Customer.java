@@ -15,4 +15,10 @@ public class Customer
 	public String toString(){
 		return "c_id = " + this.c_id + ", passwd = " + this.passwd + ", name = " + this.name + ", cellphone = " + this.cellphone + ", email = " + this.email;
 	}
+	
+	public String get_c_id() { return this.c_id; }
+	public String get_passwd() { return this.passwd; }
+	public String get_name() { return this.name; }
+	public String get_cellphone() { return this.cellphone; }
+	public String get_email() { return this.email; }
 }

@@ -107,8 +107,7 @@ public class DB
 			String registration_number = rs.getString("registration_number");
 			if(rs.wasNull())
 				return null;
-			return null;
-			//return new HotelOwner(id, passwd, "asdf", "asdf", "asdf");
+			return new HotelOwner(id, passwd, name, cellphone, registration_number);
 		} catch(SQLException ex ) {
 			System.err.println("\n SQL error in selectHotelOwner(): " + ex.getMessage() );
 			ex.printStackTrace();

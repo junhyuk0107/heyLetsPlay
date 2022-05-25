@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="hotel.*" %>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -14,11 +16,12 @@
       <nav class="navbar">
          <div class="navbar__logo">
             <span>&#x2600;</span> <!-- &#x : 16진수 표기-->
-            <a href="hostLoginpage.html">Hey!놀자</a>
+            <a href="guestLoginpage.html">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
             <li><a href="hotelReserveForm.html">호텔</a></li>
-            <li><a href="ReserveCheck.html">손님 예약내역확인</a></li>
+            <li><a href="ReserveCheck.html">예약내역확인</a></li>
+            <li><a href="ReserveCheck.html">예약취소하기</a></li>
          </ul>
          <div class="navbar__icons">
             <li><a href="index.html">로그아웃</a></li>
@@ -26,7 +29,7 @@
       </nav>
       <div id="home">
          <br>
-         <h1>차승윤님 방문을 환영합니다.</h1>
+         <h1><%=((Customer)session.getAttribute("customer")).get_name() %>님 방문을 환영합니다.</h1>
          <!-- Carousel -->
          <div  id="demo" class="carousel  slide" data-bs-ride="carousel">
             <!-- Indicators/dots -->
