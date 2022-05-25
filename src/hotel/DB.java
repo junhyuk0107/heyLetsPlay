@@ -7,6 +7,11 @@ public class DB
 	static  Connection con = null;
 	static String URL = "jdbc:mysql://localhost:3306/" ;
 	
+	//매개변수가 전달되지 않은 loadConnect는 hotelreserve를 기본으로 연결한다. java에는 기본매개변수가 없기 때문에 따로 메소드를 만들어야함.
+	public static boolean loadConnect() {
+		return loadConnect("hotelreserve");
+	}
+	
 	//DB로드하는 함수. 성공하면 true 실패하면 false를 반환
 	public static boolean loadConnect(String database)
 	{
@@ -54,8 +59,7 @@ public class DB
 	{
 		int cnt = 0;
 		try {
-			PreparedStatement prStmt;
-			prStmt = con.prepareStatement("insert into customer values(?, ?, ?, ?, ?);" );
+			PreparedStatement prStmt = con.prepareStatement("insert into customer values(?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, customer.c_id);
 			prStmt.setString(2, customer.passwd);
 			prStmt.setString(3, customer.name);
@@ -67,5 +71,40 @@ public class DB
 			ex.printStackTrace();
 		}
 		return cnt;
+	}
+	
+	//고객으로 로그인하면 Customer객체를 반환함. 에러면 null반환
+	public static Customer selectCustomer(String id, String passwd) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from customer where c_id = ? and passwd = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, id);
+			prStmt.setString(2, Hash.SHA256(passwd));
+			ResultSet rs = prStmt.executeQuery();
+			if(rs.wasNull() == true)
+				return null;
+			return new Customer(id, passwd, "asdf", "asdf", "asd");
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertCustomer(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//고객으로 로그인하면 Customer객체를 반환함. 에러면 null반환
+	public static hotelOwner selectHotelOwner(String id, String passwd) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from hotel_owner where h_id = ? and passwd = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, id);
+			prStmt.setString(2, Hash.SHA256(passwd));
+			ResultSet rs = prStmt.executeQuery();
+			rs.last();
+			if(rs.getRow() == 0)
+				return null;
+			return new hotelOwner(id, passwd, "asdf", "asdf", "asd");
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertCustomer(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
 	}
 }

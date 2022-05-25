@@ -15,11 +15,16 @@
 	String cellphone = request.getParameter("cellphone");
 	String email = request.getParameter("email");
 	//out.print(id+passwd+name+cellphone+email);
+	if(id == "" || passwd == "" || name == "" || cellphone == "" || email == ""){
+		out.print("<script>alert('모든 정보를 입력해야합니다'); window.history.go(-1);</script>");
+		return;
+	}
 	Customer customer = new Customer(id, passwd, name, cellphone, email);
 	DB.loadConnect("hotelreserve");
 	int cnt = DB.insertCustomer(customer);
 	if(cnt == 0){
 		out.print("<script>alert('id가 겹치거나 에러가 일어났습니다'); window.history.go(-1);</script>");
+		return;
 	}
 	else
 		out.print("<script>alert('회원가입 성공'); location.href='index.html';</script>");

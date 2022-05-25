@@ -9,73 +9,73 @@ public class HotelSystemInitialization
 		
 		"drop table if exists customer;",
 		"create table customer("+
-			"c_id varchar(40),"+
-			"passwd varchar(70),"+
-			"name varchar(40),"+
-			"cellphone varchar(40),"+
-			"email varchar(40),"+
+			"c_id varchar(40) NOT NULL,"+
+			"passwd varchar(70) NOT NULL,"+
+			"name varchar(40) NOT NULL,"+
+			"cellphone varchar(40) NOT NULL,"+
+			"email varchar(40) NOT NULL,"+
 			"primary key(c_id)"+
 		") DEFAULT CHARACTER SET UTF8;",
 		
 		"drop table if exists hotel_owner;",
 		"create table hotel_owner("+
-		   "h_id varchar(40),"+
-		   "passwd varchar(70),"+
-		   "name varchar(40),"+
-		   "cellphone varchar(40),"+
-		   "registration_number varchar(40),"+
-		   "primary key(H_ID)"+
+		   "h_id varchar(40) NOT NULL,"+
+		   "passwd varchar(70) NOT NULL,"+
+		   "name varchar(40) NOT NULL,"+
+		   "cellphone varchar(40) NOT NULL,"+
+		   "registration_number varchar(40) NOT NULL,"+
+		   "primary key(h_id)"+
 		") DEFAULT CHARACTER SET UTF8;",
 		
 		"drop table if exists hotel;",
 		"create table hotel("+
-		   "hotel_name varchar(40),"+
-		   "address varchar(40),"+
-		   "phone_num varchar(40),"+
-		   "stars int,"+
-		   "h_id varchar(40),"+
-		   "registration_date date,"+
+		   "hotel_name varchar(40) NOT NULL,"+
+		   "address varchar(40) NOT NULL,"+
+		   "phone_num varchar(40) NOT NULL,"+
+		   "stars int NOT NULL,"+
+		   "h_id varchar(40) NOT NULL,"+
+		   "registration_date date NOT NULL,"+
 		   "primary key(hotel_name)"+
 		") DEFAULT CHARACTER SET UTF8;",
 		
 		"drop table if exists room;",
 		"create table room("+
-		   "hotel_name varchar(40),"+
-		   "room_num int,"+
-		   "registration_date date,"+
-		   "bed_num int,"+
-		   "price int,"+
-		   "room_area int,"+
+		   "hotel_name varchar(40) NOT NULL,"+
+		   "room_num int NOT NULL,"+
+		   "registration_date date NOT NULL,"+
+		   "bed_num int NOT NULL,"+
+		   "price int NOT NULL,"+
+		   "room_area int NOT NULL,"+
 		   "primary key(hotel_name, room_num)"+
 		") DEFAULT CHARACTER SET UTF8;",
 		
 		"drop table if exists reservation;",
 		"create table reservation("+
 		   "reservation_num int,"+
-		   "hotel_name varchar(40),"+
-		   "room_num int,"+
-		   "c_id varchar(40),"+
-		   "reserve_date date,"+
-		   "start_date_of_use date,"+
-		   "end_of_use_date date,"+
-		   "payment_type varchar(40),"+
-		   "number_of_people int,"+
+		   "hotel_name varchar(40) NOT NULL,"+
+		   "room_num int NOT NULL,"+
+		   "c_id varchar(40) NOT NULL,"+
+		   "reserve_date date NOT NULL,"+
+		   "start_date_of_use date NOT NULL,"+
+		   "end_of_use_date date NOT NULL,"+
+		   "payment_type varchar(40) NOT NULL,"+
+		   "number_of_people int NOT NULL,"+
 		   "primary key(reservation_num)"+
 		") DEFAULT CHARACTER SET UTF8;",
 		
 		"drop table if exists reservation_cancellation;",
 		"create table reservation_cancellation("+
-		   "reservation_cancellation_num int,"+
-		   "cancellation_charge int,"+
-		   "cancellation_date date,"+
-		   "hotel_name varchar(40),"+
-		   "room_num int,"+
-		   "c_id varchar(40),"+
-		   "reserve_date date,"+
-		   "start_date_of_use date,"+
-		   "end_of_use_date date,"+
-		   "payment_type varchar(40),"+
-		   "number_of_people int,"+
+		   "reservation_cancellation_num int NOT NULL,"+
+		   "cancellation_charge int NOT NULL,"+
+		   "cancellation_date date NOT NULL,"+
+		   "hotel_name varchar(40) NOT NULL,"+
+		   "room_num int NOT NULL,"+
+		   "c_id varchar(40) NOT NULL,"+
+		   "reserve_date date NOT NULL,"+
+		   "start_date_of_use date NOT NULL,"+
+		   "end_of_use_date date NOT NULL,"+
+		   "payment_type varchar(40) NOT NULL,"+
+		   "number_of_people int NOT NULL,"+
 		   "primary key(reservation_cancellation_num)"+
 		") DEFAULT CHARACTER SET UTF8;"
 	};
@@ -123,10 +123,7 @@ public class HotelSystemInitialization
 	public static void main(String[] args){
 		createInitialHotelDatabase();
 		insertDefaultData();
-		System.out.println(Hash.SHA256("asdf1234"));
-		System.out.println(Hash.SHA256("asdf1234"));
-		System.out.println(Hash.SHA256("asdf1234"));
-		System.out.println(Hash.SHA256("asdf1234"));
+		System.out.println("db initialized");
 	}
 	static void createInitialHotelDatabase() {
 		DB.loadConnect("mysql");
