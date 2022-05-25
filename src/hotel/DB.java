@@ -1,6 +1,7 @@
 package hotel;
 
 import java.sql.*;
+import java.util.*;
 
 public class DB
 {
@@ -110,6 +111,30 @@ public class DB
 			return new HotelOwner(id, passwd, name, cellphone, registration_number);
 		} catch(SQLException ex ) {
 			System.err.println("\n SQL error in selectHotelOwner(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//모든 호텔을 반환하는 메소드
+	public static Vector<Hotel> selectAllHotels() {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from hotel;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<Hotel> hotels = new Vector<Hotel>();
+			while(rs.next()) {
+				String hotel_name = rs.getString("hotel_name");
+				String address = rs.getString("address");
+				String phone_num = rs.getString("phone_num");
+				int stars = rs.getInt("stars");
+				String h_id = rs.getString("h_id");
+				String registration_date = rs.getString("registration_date");
+				Hotel hotel = new Hotel(hotel_name, address, phone_num, stars, h_id, registration_date);
+				hotels.add(hotel);
+			}
+			return hotels;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
 			ex.printStackTrace();
 		}
 		return null;

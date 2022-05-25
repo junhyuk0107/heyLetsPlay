@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.*, hotel.*" %>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -25,6 +27,14 @@
             <li><a href="index.html">로그아웃</a></li>
          </div>
       </nav>
+      <%
+      DB.loadConnect();
+      Vector<Hotel> hotels = DB.selectAllHotels();
+      for(Hotel hotel: hotels){
+    	  out.print(hotel.get_hotel_name());
+    	  out.print("<br>");
+      }
+      %>
       <div class="container mt-3">
          <div class="row g-2">
             <div class="card col" >

@@ -19,7 +19,7 @@
             <a href="guestLoginpage.html">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
-            <li><a href="hotelReserveForm.html">호텔</a></li>
+            <li><a href="hotelSelect.jsp">호텔선택</a></li>
             <li><a href="ReserveCheck.html">예약내역확인</a></li>
             <li><a href="ReserveCheck.html">예약취소하기</a></li>
          </ul>
