@@ -21,6 +21,6 @@ public class Hotel
 	public String get_address() { return this.address; }
 	public String get_phone_num() { return this.phone_num; }
 	public int get_stars() { return this.stars; }
-	public String h_id() { return this.h_id; }
-	public String registration_date() { return this.registration_date; }
+	public String get_h_id() { return this.h_id; }
+	public String get_registration_date() { return this.registration_date; }
 }

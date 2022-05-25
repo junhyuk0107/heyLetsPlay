@@ -139,4 +139,44 @@ public class DB
 		}
 		return null;
 	}
+	
+	//호텔오너의 이름을 반환하는 메소드
+	public static String getHotelOwnerName(String id) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select name from hotel_owner where h_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, id);
+			ResultSet rs = prStmt.executeQuery();
+			rs.next();
+			return rs.getString("name");
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//모든 호텔을 반환하는 메소드
+	public static Vector<Room> selectRooms(String hotelname) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from room where hotel_name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, hotelname);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<Room> rooms = new Vector<Room>();
+			while(rs.next()) {
+				String hotel_name = rs.getString("hotel_name");
+				int room_num = rs.getInt("room_num");
+				String registration_date = rs.getString("registration_date");
+				int bed_num = rs.getInt("bed_num");
+				int price = rs.getInt("price");
+				int room_area = rs.getInt("room_area");
+				Room room = new Room(hotel_name, room_num, registration_date, bed_num, price, room_area);
+				rooms.add(room);
+			}
+			return rooms;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }

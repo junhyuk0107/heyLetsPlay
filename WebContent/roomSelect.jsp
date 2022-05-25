@@ -5,7 +5,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>호텔 선택</title>
+      <title>방 선택</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
       <!-- css 순서도 우선 순위에 영향을 미침 -->
@@ -35,27 +35,26 @@
       
       <div class="row">
          <%
+         String hotelname = request.getParameter("hotelname");
          DB.loadConnect();
-         Vector<Hotel> hotels = DB.selectAllHotels();
-         for(Hotel hotel : hotels){
-        	 out.println("<div class='col-sm-3'>");
+         Vector<Room> rooms = DB.selectRooms(hotelname);
+         for(Room room : rooms){
+        	 out.println("<div class='col-sm-2'>");
         	 out.println("	<div class='card'>");
-    	     out.println("		<img class='card-img-top' src='img/"+hotel.get_hotel_name()+".jpg' style='' alt='Card image'>");
-    	     out.println("		<div class='card-body'>");
-    	     out.println("			<h5 class='card-title'>"+hotel.get_hotel_name()+"</h5>");
+        	 out.println("		<img class='card-img-top' src='https://cdn.pixabay.com/photo/2021/12/11/07/59/hotel-6862159__340.jpg' alt='Card image'>");
+        	 out.println("		<div class='card-body'>");
+    	     out.println("			<h4 class='card-title'>"+room.get_room_num()+"호</h4>");
     	     out.println("		</div>");
     	     out.println("		<ul class='list-group list-group-flush'>");
-    	     out.println("			<li class='list-group-item'>주소: "+hotel.get_address()+"</li>");
-    	     out.println("			<li class='list-group-item'>전화번호: "+hotel.get_phone_num()+"</li>");
-    	     out.println("			<li class='list-group-item'>별점: "+hotel.get_stars()+"</li>");
-    	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerName(hotel.get_h_id())+"</li>");
-    	     out.println("			<li class='list-group-item'>등록일: "+hotel.get_registration_date()+"</li>");
+    	     out.println("			<li class='list-group-item'>가격: "+room.get_price()+"</li>");
+    	     out.println("			<li class='list-group-item'>면적: "+room.get_room_area()+"</li>");
+    	     out.println("			<li class='list-group-item'>등록일: "+room.get_registration_date()+"</li>");
     	     out.println("		</ul>");
     	     out.println("		<div class='card-body'>");
-    	     out.println("			<a href='roomSelect.jsp?hotelname="+hotel.get_hotel_name()+"' class='btn btn-primary'>호텔 선택</a>");
+    	     out.println("			<a href='#' class='btn btn-primary'>방 선택</a>");
     	     out.println("		</div>");
-    	     out.println("	</div>");
-    	     out.println("</div>");
+        	 out.println("	</div>");
+        	 out.println("</div>");
          }
          %>
       </div>

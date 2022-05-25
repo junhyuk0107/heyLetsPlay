@@ -1,13 +1,22 @@
+.grid-container {
+	display  :  grid;
+	grid-template-columns : repeat(auto-fill, minmax(200px, 1fr));  
+	grid-auto-rows : 300px; 
+	grid-gap :  10px; 
+}
+
 html,
 body {
   margin: auto;
   box-sizing: border-box;
   padding-top: 2rem;
 }
+
 .container{
   width: 80%;
   height: 600px;
 }
+
 .button_info{
   display: inline-flex
 }
