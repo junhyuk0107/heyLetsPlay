@@ -48,7 +48,7 @@
     	     out.println("			<li class='list-group-item'>주소: "+hotel.get_address()+"</li>");
     	     out.println("			<li class='list-group-item'>전화번호: "+hotel.get_phone_num()+"</li>");
     	     out.println("			<li class='list-group-item'>별점: "+hotel.get_stars()+"</li>");
-    	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerName(hotel.get_h_id())+"</li>");
+    	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerNameByHostId(hotel.get_h_id())+"</li>");
     	     out.println("			<li class='list-group-item'>등록일: "+hotel.get_registration_date()+"</li>");
     	     out.println("		</ul>");
     	     out.println("		<div class='card-body'>");

@@ -140,8 +140,8 @@ public class DB
 		return null;
 	}
 	
-	//호텔오너의 이름을 반환하는 메소드
-	public static String getHotelOwnerName(String id) {
+	//id로 호텔오너의 이름을 반환하는 메소드
+	public static String getHotelOwnerNameByHostId(String id) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select name from hotel_owner where h_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, id);
@@ -173,6 +173,21 @@ public class DB
 				rooms.add(room);
 			}
 			return rooms;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//id로 호텔오너의 이름을 반환하는 메소드
+	public static String getHotelOwnerNameByHotelName(String hotel_name) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select name from hotel_owner, hotel where hotel_owner.h_id = hotel.h_id and hotel_name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, hotel_name);
+			ResultSet rs = prStmt.executeQuery();
+			rs.next();
+			return rs.getString("name");
 		} catch(SQLException ex ) {
 			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
 			ex.printStackTrace();

@@ -43,12 +43,13 @@
         	 out.println("	<div class='card'>");
         	 out.println("		<img class='card-img-top' src='https://cdn.pixabay.com/photo/2021/12/11/07/59/hotel-6862159__340.jpg' alt='Card image'>");
         	 out.println("		<div class='card-body'>");
-    	     out.println("			<h4 class='card-title'>"+room.get_room_num()+"호</h4>");
+    	     out.println("			<h4 class='card-title'>"+room.get_hotel_name()+" "+room.get_room_num()+"호</h4>");
     	     out.println("		</div>");
     	     out.println("		<ul class='list-group list-group-flush'>");
     	     out.println("			<li class='list-group-item'>가격: "+room.get_price()+"</li>");
     	     out.println("			<li class='list-group-item'>면적: "+room.get_room_area()+"</li>");
     	     out.println("			<li class='list-group-item'>등록일: "+room.get_registration_date()+"</li>");
+    	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerNameByHotelName(room.get_hotel_name())+"</li>");
     	     out.println("		</ul>");
     	     out.println("		<div class='card-body'>");
     	     out.println("			<a href='roomReserve.jsp?hotel_name="+hotelname+"&room_num="+room.get_room_num()+"' class='btn btn-primary'>방 선택</a>");
