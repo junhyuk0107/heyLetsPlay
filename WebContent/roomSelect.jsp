@@ -51,7 +51,7 @@
     	     out.println("			<li class='list-group-item'>등록일: "+room.get_registration_date()+"</li>");
     	     out.println("		</ul>");
     	     out.println("		<div class='card-body'>");
-    	     out.println("			<a href='#' class='btn btn-primary'>방 선택</a>");
+    	     out.println("			<a href='roomReserve.jsp?hotel_name="+hotelname+"&room_num="+room.get_room_num()+"' class='btn btn-primary'>방 선택</a>");
     	     out.println("		</div>");
         	 out.println("	</div>");
         	 out.println("</div>");

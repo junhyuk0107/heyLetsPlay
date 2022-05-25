@@ -117,8 +117,14 @@ public class HotelSystemInitialization
 			"insert into room values('호텔 아르떼', 102, '2016-12-25', 2, 90000, 20);",
 			"insert into room values('호텔 아르떼', 103, '2016-12-25', 2, 90000, 20);",
 			
-			"insert into reservation_cancellation values(1, 20000, '2022-03-04', '한신호텔', 101, 'owner1', '2022-03-01', '2022-03-22', '2022-03-23', '신용카드', 3);",
-			"insert into reservation_cancellation values(2, 25000, '2022-04-04', '신라스테이 삼성', 101, 'owner2', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);"
+			"insert into reservation values(1, '라발스 호텔 부산', 101, 'guest1', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
+			"insert into reservation values(2, '힐튼 가든인 서울 강남', 101, 'guest2', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
+			"insert into reservation values(3, '속초 컨피네스 비치 호텔', 101, 'guest3', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
+			"insert into reservation values(4, '신라스테이 삼성', 101, 'guest4', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
+			"insert into reservation values(5, '호텔 아르떼', 101, 'guest5', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
+			
+			"insert into reservation_cancellation values(1, 20000, '2022-03-04', '한신호텔', 101, 'guest1', '2022-03-01', '2022-03-22', '2022-03-23', '신용카드', 3);",
+			"insert into reservation_cancellation values(2, 25000, '2022-04-04', '신라스테이 삼성', 101, 'guest2', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);"
 	};
 	public static void main(String[] args){
 		createInitialHotelDatabase();
