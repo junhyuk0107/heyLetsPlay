@@ -73,10 +73,14 @@
     	     out.println("						<option value='5'>5</option>");
     	     out.println("					</select>");
     	     out.println("					<button class='btn btn-primary' type='submit'>예약</button>");
-    	     out.println("					");
     	     out.println("				</form>");
     	     out.println("			</div>");
     	     out.println("		</div>");
+    	     Vector<Reservation> reservations = DB.selectReservationsByRoom(room);
+    	     out.println("		<ul class='list-group list-group-flush'>");
+    	     for(Reservation reservation: reservations)
+    	     out.println("			<li class='list-group-item'>예약된 날: "+reservation.get_start_date_of_use()+" ~ "+reservation.get_end_of_use_date()+"</li>");
+    	     out.println("		</ul>");
         	 out.println("	</div>");
         	 out.println("</div>");
          }
