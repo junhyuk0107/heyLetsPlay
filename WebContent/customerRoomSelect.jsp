@@ -21,15 +21,15 @@
       <nav class="navbar">
          <div class="navbar__logo">
             <span>&#x2600;</span> <!-- &#x : 16진수 표기-->
-            <a href="guestLoginpage.html">Hey!놀자</a>
+            <a href="index.jsp">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
-            <li><a href="hotelSelect.jsp">호텔선택</a></li>
-            <li><a href="ReserveCheck.html">예약내역확인</a></li>
-            <li><a href="ReserveCheck.html">취소내역확인</a></li>
+            <li><a href="customerHotelSelect.jsp">호텔선택</a></li>
+            <li><a href="customerReservationCheck.jsp">예약내역확인</a></li>
+            <li><a href="customerReservationCancellationCheck.jsp">취소내역확인</a></li>
          </ul>
          <div class="navbar__icons">
-            <a href="index.html">로그아웃</a>
+            <a href="systemLogOut.jsp">로그아웃</a>
          </div>
       </nav>
       
@@ -54,11 +54,11 @@
     	     out.println("		</ul>");
     	     out.println("		<div class='collapse' id='collapse"+room.get_room_num()+"' style=''>");
     	     out.println("			<div class='card-body'>");
-    	     out.println("				<form action='roomReserve.jsp' method='post'>");
+    	     out.println("				<form action='systemRoomReserve.jsp' method='post'>");
     	     out.println("					<label>호텔이름</label>");
-    	     out.println("					<input type='text' class='form-control' name='hotel_name' value='"+hotelname+"' disabled>");
+    	     out.println("					<input type='text' class='form-control' name='hotel_name' value='"+hotelname+"' readonly>");
     	     out.println("					<label>방 호수</label>");
-    	     out.println("					<input type='text' class='form-control' name='room_num' value='"+room.get_room_num()+"' disabled>");
+    	     out.println("					<input type='text' class='form-control' name='room_num' value='"+room.get_room_num()+"' readonly>");
     	     out.println("					<label>시작날짜</label>");
     	     out.println("					<input type='date' class='form-control' name='start_date_of_use' min='2022-01-01' max='2022-12-31'>");
     	     out.println("					<label>마지막날짜</label>");

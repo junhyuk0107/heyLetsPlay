@@ -1,4 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.*, hotel.*" %>
 <!DOCTYPE html>
+<%
+//로그인되어있는 상태라면 리다이렉트됨.
+if(session.getAttribute("loginRight") == null){}
+else if(session.getAttribute("loginRight").equals("customer"))
+	response.sendRedirect("customerIndex.jsp");
+else if(session.getAttribute("loginRight").equals("hotelOwner"))
+	response.sendRedirect("hostIndex.jsp");
+%>
 <html lang="ko">
    <head>
       <meta charset="UTF-8">

@@ -16,7 +16,7 @@
       <nav class="navbar">
          <div class="navbar__logo">
             <span>&#x2600;</span> <!-- &#x : 16진수 표기-->
-            <a href="hostLoginpage.html">Hey!놀자</a>
+            <a href="index.jsp">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
             <li><a href="hotelReserveForm.html">호텔</a></li>

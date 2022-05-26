@@ -16,15 +16,15 @@
       <nav class="navbar">
          <div class="navbar__logo">
             <span>&#x2600;</span> <!-- &#x : 16진수 표기-->
-            <a href="guestLoginpage.html">Hey!놀자</a>
+            <a href="index.jsp">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
-            <li><a href="hotelSelect.jsp">호텔선택</a></li>
-            <li><a href="ReserveCheck.html">예약내역확인</a></li>
-            <li><a href="ReserveCheck.html">취소내역확인</a></li>
+            <li><a href="customerHotelSelect.jsp">호텔선택</a></li>
+            <li><a href="customerReservationCheck.jsp">예약내역확인</a></li>
+            <li><a href="customerReservationCancellationCheck.jsp">취소내역확인</a></li>
          </ul>
          <div class="navbar__icons">
-            <li><a href="index.html">로그아웃</a></li>
+            <li><a href="systemLogOut.jsp">로그아웃</a></li>
          </div>
       </nav>
       <div id="home">

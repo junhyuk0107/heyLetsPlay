@@ -10,26 +10,22 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
       <!-- css 순서도 우선 순위에 영향을 미침 -->
       <link rel="stylesheet" href="style.css">
-      <script>
-         function selectHotel(hotelname){
-        	 location.href = "roomSelect.jsp?hotelname="+hotelname;
-         }
-      </script>
+      <script src="hotelReserve.js"></script>
    </head>
    <body>
       <!-- 네비게이션 바-->
       <nav class="navbar">
          <div class="navbar__logo">
             <span>&#x2600;</span> <!-- &#x : 16진수 표기-->
-            <a href="guestLoginpage.html">Hey!놀자</a>
+            <a href="index.jsp">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
-            <li><a href="hotelSelect.jsp">호텔선택</a></li>
-            <li><a href="ReserveCheck.html">예약내역확인</a></li>
-            <li><a href="ReserveCheck.html">취소내역확인</a></li>
+            <li><a href="customerHotelSelect.jsp">호텔선택</a></li>
+            <li><a href="customerReservationCheck.jsp">예약내역확인</a></li>
+            <li><a href="customerReservationCancellationCheck.jsp">취소내역확인</a></li>
          </ul>
          <div class="navbar__icons">
-            <a href="index.html">로그아웃</a>
+            <a href="systemLogOut.jsp">로그아웃</a>
          </div>
       </nav>
       
@@ -52,7 +48,7 @@
     	     out.println("			<li class='list-group-item'>등록일: "+hotel.get_registration_date()+"</li>");
     	     out.println("		</ul>");
     	     out.println("		<div class='card-body'>");
-    	     out.println("			<a href='roomSelect.jsp?hotelname="+hotel.get_hotel_name()+"' class='btn btn-primary'>호텔 선택</a>");
+    	     out.println("			<a onclick='selectHotel(\""+hotel.get_hotel_name()+"\");' class='btn btn-primary'>호텔 선택</a>");
     	     out.println("		</div>");
     	     out.println("	</div>");
     	     out.println("</div>");

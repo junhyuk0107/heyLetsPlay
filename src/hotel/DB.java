@@ -194,4 +194,54 @@ public class DB
 		}
 		return null;
 	}
+	
+	//예약을 db에 삽입하는 메소드 
+	public static int insertReservation(Reservation reservation)
+	{
+		int cnt = 0;
+		try {
+			//삽입 전 다른 사람과 겹치는 기간이라면 예약하지 못하게 하는 코드 추가 요망
+			PreparedStatement prStmt = con.prepareStatement("insert into reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, reservation.hotel_name);
+			prStmt.setInt(2, reservation.room_num);
+			prStmt.setString(3, reservation.c_id);
+			prStmt.setString(4, reservation.reserve_date);
+			prStmt.setString(5, reservation.start_date_of_use);
+			prStmt.setString(6, reservation.end_of_use_date);
+			prStmt.setString(7, reservation.payment_type);
+			prStmt.setInt(8, reservation.number_of_people);
+			cnt = prStmt.executeUpdate();
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertReservation(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	//c_id에 해당하는 예약들을 반환하는 메소드
+	public static Vector<Reservation> selectReservationsByC_id(String c_id) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from reservation where c_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, c_id);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<Reservation> reservations = new Vector<Reservation>();
+			while(rs.next()) {
+				String hotel_name = rs.getString("hotel_name");
+				int room_num = rs.getInt("room_num");
+				String reserve_date = rs.getString("reserve_date");
+				String start_date_of_use = rs.getString("start_date_of_use");
+				String end_of_use_date = rs.getString("end_of_use_date");
+				String payment_type = rs.getString("payment_type");
+				int number_of_people = rs.getInt("number_of_people");
+				Reservation reservation = new Reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people);
+				reservations.add(reservation);
+			}
+			return reservations;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }
