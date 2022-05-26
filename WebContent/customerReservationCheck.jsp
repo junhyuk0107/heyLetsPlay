@@ -5,6 +5,9 @@
 //고객 로그인이 되어있지 않으면 index페이지로 돌아감
 if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginRight").equals("hotelOwner")))
 	response.sendRedirect("index.jsp");
+String c_id = null;
+if((Customer)session.getAttribute("customer") != null)
+	c_id = ((Customer)session.getAttribute("customer")).get_c_id();
 %>
 <html lang="ko">
    <head>
@@ -36,7 +39,6 @@ if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginR
       
       <div class="row">
          <%
-         String c_id = ((Customer)session.getAttribute("customer")).get_c_id();
          DB.loadConnect();
          Vector<Reservation> reservations = DB.selectReservationsByC_id(c_id);
          for(Reservation reservation : reservations){
