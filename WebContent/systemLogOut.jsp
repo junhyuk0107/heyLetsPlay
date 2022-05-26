@@ -14,7 +14,7 @@ session.removeAttribute("customer");
 session.removeAttribute("hotelOwner");
 
 //인텍스 페이지로 리다이렉트
-response.sendRedirect("index.html");
+response.sendRedirect("index.jsp");
 %>
 </body>
 </html>

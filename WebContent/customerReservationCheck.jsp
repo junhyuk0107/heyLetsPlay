@@ -63,7 +63,7 @@ if((Customer)session.getAttribute("customer") != null)
     	     out.println("			<div class='card-body'>");
     	     out.println("				<form action='systemRoomCancel.jsp' method='post'>");
     	     out.println("					<label>위약금</label>");
-    	     out.println("					<input type='number' class='form-control' name='cancellation_charge' value='"+reservation.get_number_of_people()+"' readonly>");
+    	     out.println("					<input type='number' class='form-control' name='cancellation_charge' value='"+reservation.get_number_of_people() * DB.selectRoomByHotelNameAndRoomNum(reservation.get_hotel_name(), reservation.get_room_num()).get_price()+"' readonly>");
     	     out.println("					<label>호텔이름</label>");
     	     out.println("					<input type='text' class='form-control' name='hotel_name' value='"+reservation.get_hotel_name()+"' readonly>");
     	     out.println("					<label>방 호수</label>");

@@ -32,7 +32,7 @@ if(session.getAttribute("hotelOwner") != null)
             <li><a href="hostReservationCancellationCheck.jsp">손님 예약취소내역확인</a></li>
          </ul>
          <div class="navbar__icons">
-            <li><a href="index.html">로그아웃</a></li>
+            <li><a href="systemLogOut.jsp">로그아웃</a></li>
          </div>
       </nav>
       <div id="home">
