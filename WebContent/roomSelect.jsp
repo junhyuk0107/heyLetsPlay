@@ -6,8 +6,8 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>방 선택</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
       <!-- css 순서도 우선 순위에 영향을 미침 -->
       <link rel="stylesheet" href="style.css">
       <script>
@@ -50,9 +50,36 @@
     	     out.println("			<li class='list-group-item'>면적: "+room.get_room_area()+"</li>");
     	     out.println("			<li class='list-group-item'>등록일: "+room.get_registration_date()+"</li>");
     	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerNameByHotelName(room.get_hotel_name())+"</li>");
+    	     out.println("			<button class='btn btn-primary collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse"+room.get_room_num()+"' aria-expanded='false'>방 선택</button>");
     	     out.println("		</ul>");
-    	     out.println("		<div class='card-body'>");
-    	     out.println("			<a href='roomReserve.jsp?hotel_name="+hotelname+"&room_num="+room.get_room_num()+"' class='btn btn-primary'>방 선택</a>");
+    	     out.println("		<div class='collapse' id='collapse"+room.get_room_num()+"' style=''>");
+    	     out.println("			<div class='card-body'>");
+    	     out.println("				<form action='roomReserve.jsp' method='post'>");
+    	     out.println("					<label>호텔이름</label>");
+    	     out.println("					<input type='text' class='form-control' name='hotel_name' value='"+hotelname+"' disabled>");
+    	     out.println("					<label>방 호수</label>");
+    	     out.println("					<input type='text' class='form-control' name='room_num' value='"+room.get_room_num()+"' disabled>");
+    	     out.println("					<label>시작날짜</label>");
+    	     out.println("					<input type='date' class='form-control' name='start_date_of_use' min='2022-01-01' max='2022-12-31'>");
+    	     out.println("					<label>마지막날짜</label>");
+    	     out.println("					<input type='date' class='form-control' name='end_of_use_date' min='2022-01-01' max='2022-12-31'>");
+    	     out.println("					<label>결제종류</label>");
+    	     out.println("					<select class='form-select' name='payment_type'>");
+    	     out.println("						<option value='신용카드' selected>신용카드</option>");
+    	     out.println("						<option value='현금'>현금</option>");
+    	     out.println("					</select>");
+    	     out.println("					<label>인원수</label>");
+    	     out.println("					<select class='form-select' name='number_of_people'>");
+    	     out.println("						<option value='1' selected>1</option>");
+    	     out.println("						<option value='2'>2</option>");
+    	     out.println("						<option value='3'>3</option>");
+    	     out.println("						<option value='4'>4</option>");
+    	     out.println("						<option value='5'>5</option>");
+    	     out.println("					</select>");
+    	     out.println("					<button class='btn btn-primary' type='submit'>예약</button>");
+    	     out.println("					");
+    	     out.println("				</form>");
+    	     out.println("			</div>");
     	     out.println("		</div>");
         	 out.println("	</div>");
         	 out.println("</div>");
