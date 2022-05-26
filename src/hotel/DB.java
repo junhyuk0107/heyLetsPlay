@@ -272,4 +272,30 @@ public class DB
 		}
 		return null;
 	}
+	
+	//예약취소를 db에 삽입하는 메소드 
+	public static int insertReservationCancellation(ReservationCancellation reservationCancellation)
+	{
+		int cnt = 0;
+		try {
+			//삽입 전 다른 사람과 겹치는 기간이라면 예약하지 못하게 하는 코드 추가 요망
+			PreparedStatement prStmt = con.prepareStatement("insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setInt(1, reservationCancellation.cancellation_charge);
+			prStmt.setString(2, reservationCancellation.cancellation_date);
+			prStmt.setString(3, reservationCancellation.hotel_name);
+			prStmt.setInt(4, reservationCancellation.room_num);
+			prStmt.setString(5, reservationCancellation.c_id);
+			prStmt.setString(6, reservationCancellation.reserve_date);
+			prStmt.setString(7, reservationCancellation.start_date_of_use);
+			prStmt.setString(8, reservationCancellation.end_of_use_date);
+			prStmt.setString(9, reservationCancellation.payment_type);
+			prStmt.setInt(10, reservationCancellation.number_of_people);
+			cnt = prStmt.executeUpdate();
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertReservationCancellation(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return cnt;
+	}
 }

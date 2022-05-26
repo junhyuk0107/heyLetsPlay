@@ -27,16 +27,11 @@
    DB.loadConnect();
    int cnt = DB.insertReservation(reservation);
    if(cnt == 1) {
-	   
+	   response.sendRedirect("customerReservationCheck.jsp");
    }
    else {
-	   
+	   out.print("<script>alert('날짜가 겹칩니다.'); window.history.go(-1);</script>"); return;
    }
-   out.print(cnt + "<br>");
-   out.print(start_date_of_use+"<br>");
-   out.print(end_of_use_date+"<br>");
-   out.print(reserve_date+"<br>");
-   
    %>
    </body>
 </html>
