@@ -123,8 +123,11 @@ public class HotelSystemInitialization
 			"insert into reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people) values('신라스테이 삼성', 101, 'guest4', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
 			"insert into reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people) values('호텔 아르떼', 101, 'guest5', '2022-03-01', '2022-07-22', '2022-07-23', '신용카드', 4);",
 			
-			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(20000, '2022-03-04', '한신호텔', 101, 'guest1', '2022-03-01', '2022-03-22', '2022-03-23', '신용카드', 3);",
-			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(25000, '2022-04-04', '신라스테이 삼성', 101, 'guest2', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);"
+			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(20000, '2022-03-04', '라발스 호텔 부산', 101, 'guest1', '2022-03-01', '2022-03-22', '2022-03-23', '신용카드', 3);",
+			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(25000, '2022-04-04', '힐튼 가든인 서울 강남', 101, 'guest2', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);",
+			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(25000, '2022-04-04', '속초 컨피네스 비치 호텔', 101, 'guest3', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);",
+			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(25000, '2022-04-04', '신라스테이 삼성', 101, 'guest4', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);",
+			"insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) values(25000, '2022-04-04', '호텔 아르떼', 101, 'guest5', '2022-04-01', '2022-04-22', '2022-04-23', '신용카드', 3);",
 	};
 	public static void main(String[] args){
 		createInitialHotelDatabase();

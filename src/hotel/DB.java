@@ -244,4 +244,32 @@ public class DB
 		}
 		return null;
 	}
+	
+	//c_id에 해당하는 예약취소들을 반환하는 메소드
+	public static Vector<ReservationCancellation> selectReservationCancellationsByC_id(String c_id) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from reservation_cancellation where c_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, c_id);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<ReservationCancellation> reservationCancellations = new Vector<ReservationCancellation>();
+			while(rs.next()) {
+				int cancellation_charge = rs.getInt("cancellation_charge");
+				String cancellation_date = rs.getString("cancellation_date");
+				String hotel_name = rs.getString("hotel_name");
+				int room_num = rs.getInt("room_num");
+				String reserve_date = rs.getString("reserve_date");
+				String start_date_of_use = rs.getString("start_date_of_use");
+				String end_of_use_date = rs.getString("end_of_use_date");
+				String payment_type = rs.getString("payment_type");
+				int number_of_people = rs.getInt("number_of_people");
+				ReservationCancellation reservationCancellation = new ReservationCancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people);
+				reservationCancellations.add(reservationCancellation);
+			}
+			return reservationCancellations;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }

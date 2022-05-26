@@ -10,11 +10,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
       <!-- css 순서도 우선 순위에 영향을 미침 -->
       <link rel="stylesheet" href="style.css">
-      <script>
-         function selectHotel(hotelname){
-        	 location.href = "roomSelect.jsp?hotelname="+hotelname;
-         }
-      </script>
+      <script src="hotelReserve.js"></script>
    </head>
    <body>
       <!-- 네비게이션 바-->
