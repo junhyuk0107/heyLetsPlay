@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="hotel.*" %>
 <!DOCTYPE html>
+<%
+//고객 로그인이 되어있지 않으면 index페이지로 돌아감
+if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginRight").equals("hotelOwner")))
+	response.sendRedirect("index.jsp");
+String customerName = null; 
+if(session.getAttribute("customer") != null)
+	customerName = ((Customer)session.getAttribute("customer")).get_name();
+%>
 <html lang="ko">
    <head>
       <meta charset="UTF-8">
@@ -30,7 +38,7 @@
       </nav>
       <div id="home">
          <br>
-         <h1><%=((Customer)session.getAttribute("customer")).get_name() %>님 방문을 환영합니다.</h1>
+         <h1><%=customerName %>님 방문을 환영합니다.</h1>
          <!-- Carousel -->
          <div  id="demo" class="carousel  slide" data-bs-ride="carousel">
             <!-- Indicators/dots -->

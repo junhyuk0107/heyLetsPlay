@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.*, hotel.*" %>
 <!DOCTYPE html>
+<%
+//호텔 주인이 로그인 되어있지 않으면 index페이지로 돌아감
+if((session.getAttribute("loginRight") == null) || (session.getAttribute("hotelOwner") == null))
+	response.sendRedirect("index.jsp");
+String hostName = null; 
+if(session.getAttribute("hotelOwner") != null)
+	hostName = ((HotelOwner)session.getAttribute("hotelOwner")).get_name();
+%>
 <html lang="ko">
    <head>
       <meta charset="UTF-8">
@@ -20,8 +28,8 @@
             <a href="index.jsp">Hey!놀자</a>
          </div>
          <ul class="navbar__menu">
-            <li><a href="hotelReserveForm.html">호텔</a></li>
-            <li><a href="ReserveCheck.html">손님 예약내역확인</a></li>
+            <li><a href="hostReservationCheck.jsp">손님 예약내역확인</a></li>
+            <li><a href="hostReservationCancellationCheck.jsp">손님 예약취소내역확인</a></li>
          </ul>
          <div class="navbar__icons">
             <li><a href="index.html">로그아웃</a></li>
@@ -29,7 +37,7 @@
       </nav>
       <div id="home">
          <br>
-         <h1><%=((HotelOwner)session.getAttribute("hotelOwner")).get_name() %>님 방문을 환영합니다.</h1>
+         <h1><%=hostName %>님 방문을 환영합니다.</h1>
          <!-- Carousel -->
          <div  id="demo" class="carousel  slide" data-bs-ride="carousel">
             <!-- Indicators/dots -->

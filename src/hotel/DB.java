@@ -195,11 +195,39 @@ public class DB
 		return null;
 	}
 	
+	//예약을 db에서 삭제하는 메소드 
+	public static int deleteReservation(String hotel_name, int room_num, String c_id, String start_date_of_use)
+	{
+		int cnt = 0;
+		try {
+			PreparedStatement prStmt = con.prepareStatement("delete from reservation where hotel_name = ? and room_num = ? and c_id = ? "
+					+ "and start_date_of_use = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, hotel_name);
+			prStmt.setInt(2, room_num);
+			prStmt.setString(3, c_id);
+			prStmt.setString(4, start_date_of_use);
+			cnt = prStmt.executeUpdate();
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL executeUpdate error in insertReservation(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	//예약을 db에 삽입하는 메소드 
 	public static int insertReservation(Reservation reservation)
 	{
 		int cnt = 0;
 		try {
+			Vector<Reservation> otherReservations = DB.selectReservationsByRoom(DB.selectRoomByHotelNameAndRoomNum(reservation.hotel_name, reservation.room_num));
+			for(Reservation otherReservation: otherReservations)
+			{
+				//예약-종료일이 다른 사람의 시작일보다 작거나, 예약-시작일이 다른 사람의 종료일보다 커야한다. 그래야 겹치지 않는 날짜다.
+				if((reservation.end_of_use_date.compareTo(otherReservation.start_date_of_use) < 0) || (reservation.start_date_of_use.compareTo(otherReservation.end_of_use_date) > 0))
+					continue;
+				else
+					return -1;
+			}
 			//삽입 전 다른 사람과 겹치는 기간이라면 예약하지 못하게 하는 코드 추가 요망
 			PreparedStatement prStmt = con.prepareStatement("insert into reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people) "
 					+ "values(?, ?, ?, ?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -217,6 +245,29 @@ public class DB
 			ex.printStackTrace();
 		}
 		return cnt;
+	}
+	
+	//해당되는 호텔이름과 방번호의 방을 반환하는 메소드
+	public static Room selectRoomByHotelNameAndRoomNum(String hotel_name, int room_num) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from room where hotel_name = ? and room_num = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, hotel_name);
+			prStmt.setInt(2, room_num);
+			ResultSet rs = prStmt.executeQuery();
+			rs.next();
+			
+			String registration_date = rs.getString("registration_date");
+			int bed_num = rs.getInt("bed_num");
+			int price = rs.getInt("price");
+			int room_area = rs.getInt("room_area");
+			Room room = new Room(hotel_name, room_num, registration_date, bed_num, price, room_area);
+				
+			return room;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
 	}
 	
 	//c_id에 해당하는 예약들을 반환하는 메소드
@@ -248,7 +299,7 @@ public class DB
 	//room에 해당하는 예약들을 반환하는 메소드
 	public static Vector<Reservation> selectReservationsByRoom(Room room) {
 		try {
-			PreparedStatement prStmt = con.prepareStatement("select * from reservation where hotel_name = ? and room_num = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			PreparedStatement prStmt = con.prepareStatement("select * from reservation where hotel_name = ? and room_num = ? order by start_date_of_use;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, room.hotel_name);
 			prStmt.setInt(2, room.room_num);
 			ResultSet rs = prStmt.executeQuery();
@@ -306,7 +357,6 @@ public class DB
 	{
 		int cnt = 0;
 		try {
-			//삽입 전 다른 사람과 겹치는 기간이라면 예약하지 못하게 하는 코드 추가 요망
 			PreparedStatement prStmt = con.prepareStatement("insert into reservation_cancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date , payment_type, number_of_people) "
 					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setInt(1, reservationCancellation.cancellation_charge);

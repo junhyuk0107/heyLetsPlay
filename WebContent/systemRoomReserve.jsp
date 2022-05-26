@@ -23,14 +23,20 @@
 		   end_of_use_date == null || end_of_use_date.equals("") ||payment_type == null || payment_type.equals("") || number_of_people == null || number_of_people.equals("")){
 	   out.print("<script>alert('모든 값을 입력해햐 합니다'); window.history.go(-1);</script>"); return;
    }
+   if(start_date_of_use.compareTo(end_of_use_date)>0){
+	   out.print("<script>alert('마지막 날짜는 시작 날짜보다 뒤어야 합니다'); window.history.go(-1);</script>"); return;
+   }	   
    Reservation reservation = new Reservation(hotel_name, Integer.parseInt(room_num), ((Customer)session.getAttribute("customer")).get_c_id(), reserve_date, start_date_of_use, end_of_use_date, payment_type, Integer.parseInt(number_of_people));
    DB.loadConnect();
    int cnt = DB.insertReservation(reservation);
    if(cnt == 1) {
 	   response.sendRedirect("customerReservationCheck.jsp");
    }
-   else {
-	   out.print("<script>alert('날짜가 겹칩니다.'); window.history.go(-1);</script>"); return;
+   else if(cnt == 0){
+	   out.print("<script>alert('에러가 발생했습니다'); window.history.go(-1);</script>"); return;
+   }
+   else{
+	   out.print("<script>alert('날짜를 겹치지 않게 하십시오'); window.history.go(-1);</script>"); return;
    }
    %>
    </body>

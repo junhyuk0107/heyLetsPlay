@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.*, hotel.*" %>
 <!DOCTYPE html>
+<%
+//고객 로그인이 되어있지 않으면 index페이지로 돌아감
+if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginRight").equals("hotelOwner")))
+	response.sendRedirect("index.jsp");
+%>
 <html lang="ko">
    <head>
       <meta charset="UTF-8">
