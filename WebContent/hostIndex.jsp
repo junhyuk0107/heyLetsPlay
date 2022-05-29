@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
 //호텔 주인이 로그인 되어있지 않으면 index페이지로 돌아감
-if((session.getAttribute("loginRight") == null) || (session.getAttribute("hotelOwner") == null))
+if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginRight").equals("customer")))
 	response.sendRedirect("index.jsp");
 String hostName = null; 
 if(session.getAttribute("hotelOwner") != null)

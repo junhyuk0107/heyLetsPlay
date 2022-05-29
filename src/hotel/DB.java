@@ -8,28 +8,32 @@ public class DB
 	static  Connection con = null;
 	static String URL = "jdbc:mysql://localhost:3306/" ;
 	
-	//¸Å°³º¯¼ö°¡ Àü´ŞµÇÁö ¾ÊÀº loadConnect´Â hotelreserve¸¦ ±âº»À¸·Î ¿¬°áÇÑ´Ù. java¿¡´Â ±âº»¸Å°³º¯¼ö°¡ ¾ø±â ¶§¹®¿¡ µû·Î ¸Ş¼Òµå¸¦ ¸¸µé¾î¾ßÇÔ.
+	//ë§¤ê°œë³€ìˆ˜ê°€ ì „ë‹¬ë˜ì§€ ì•Šì€ loadConnectëŠ” hotelreserveë¥¼ ê¸°ë³¸ìœ¼ë¡œ ì—°ê²°í•œë‹¤. javaì—ëŠ” ê¸°ë³¸ë§¤ê°œë³€ìˆ˜ê°€ ì—†ê¸° ë•Œë¬¸ì— ë”°ë¡œ ë©”ì†Œë“œë¥¼ ë§Œë“¤ì–´ì•¼í•¨.
 	public static boolean loadConnect() {
 		return loadConnect("hotelreserve");
 	}
 	
-	//DB·ÎµåÇÏ´Â ÇÔ¼ö. ¼º°øÇÏ¸é true ½ÇÆĞÇÏ¸é false¸¦ ¹İÈ¯
+	//DBë¡œë“œí•˜ëŠ” í•¨ìˆ˜. ì„±ê³µí•˜ë©´ true ì‹¤íŒ¨í•˜ë©´ falseë¥¼ ë°˜í™˜
 	public static boolean loadConnect(String database)
 	{
-		try { Class.forName("com.mysql.jdbc.Driver");} 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("ë“œë¼ì´ë¸Œ ë¡œë“œ ì„±ê³µ");
+			} 
 		catch ( java.lang.ClassNotFoundException e ) {
-			System.err.println("Driver load ¿¡·¯: " + e.getMessage() );
+			System.err.println("Driver load ì—ëŸ¬: " + e.getMessage() );
 			e.printStackTrace();                      
 		}
 		try {
 			   con  = DriverManager.getConnection(URL + database, "root", "onlyroot");
+			   System.out.println("con ì„±ê³µ");
 			   return true;
 		} 
-		catch( SQLException e ) { System.err.println("conn ¿¡·¯:" + e.getMessage() ); }
+		catch( SQLException e ) { System.err.println("conn ì—ëŸ¬:" + e.getMessage() ); }
 		return false;
 	}
 	
-	//¸ğµç sqlÀ» ½ÇÇàÇÏ´Â ¸Ş¼Òµå
+	//ëª¨ë“  sqlì„ ì‹¤í–‰í•˜ëŠ” ë©”ì†Œë“œ
 	public static void executeAnyQuery(String sql) 
 	{
 		try {
@@ -37,12 +41,12 @@ public class DB
 			stmt.execute(sql);
 		} catch(SQLException ex ) {
 			System.err.println("\n SQL execute error in executeAnyQuery(): " + ex.getMessage() );
-			System.out.println("¿¡·¯±¸¹®: " + sql);
+			System.out.println("ì—ëŸ¬êµ¬ë¬¸: " + sql);
 			ex.printStackTrace();
 		}
 	}
 	
-	//¸ğµç insert¹®À» ½ÇÇàÇÏ´Â ¸Ş¼Òµå
+	//ëª¨ë“  insertë¬¸ì„ ì‹¤í–‰í•˜ëŠ” ë©”ì†Œë“œ
 	public static void insertAnyQuery(String sql) 
 	{
 		try {
@@ -50,12 +54,12 @@ public class DB
 			stmt.executeUpdate(sql);	
 		} catch(SQLException ex ) {
 			System.err.println("\n SQL executeUpdate error in insertAnyQuery(): " + ex.getMessage() );
-			System.out.println("¿¡·¯±¸¹®: " + sql);
+			System.out.println("ì—ëŸ¬êµ¬ë¬¸: " + sql);
 			ex.printStackTrace();
 		}
 	}
 	
-	//È¸¿ø°¡ÀÔ customer °èÁ¤À» db¿¡ »ğÀÔÇÏ´Â ¸Ş¼Òµå 
+	//íšŒì›ê°€ì… customer ê³„ì •ì„ dbì— ì‚½ì…í•˜ëŠ” ë©”ì†Œë“œ 
 	public static int insertCustomer(Customer customer)
 	{
 		int cnt = 0;
@@ -74,7 +78,7 @@ public class DB
 		return cnt;
 	}
 	
-	//°í°´À¸·Î ·Î±×ÀÎÇÏ¸é Customer°´Ã¼¸¦ ¹İÈ¯ÇÔ. ¿¡·¯¸é null¹İÈ¯
+	//ê³ ê°ìœ¼ë¡œ ë¡œê·¸ì¸í•˜ë©´ Customerê°ì²´ë¥¼ ë°˜í™˜í•¨. ì—ëŸ¬ë©´ nullë°˜í™˜
 	public static Customer selectCustomer(String id, String passwd) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from customer where c_id = ? and passwd = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -95,7 +99,7 @@ public class DB
 		return null;
 	}
 	
-	//°í°´À¸·Î ·Î±×ÀÎÇÏ¸é Customer°´Ã¼¸¦ ¹İÈ¯ÇÔ. ¿¡·¯¸é null¹İÈ¯
+	//ì—…ì£¼ìœ¼ë¡œ ë¡œê·¸ì¸í•˜ë©´ HotelOwnerê°ì²´ë¥¼ ë°˜í™˜í•¨. ì—ëŸ¬ë©´ nullë°˜í™˜
 	public static HotelOwner selectHotelOwner(String id, String passwd) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from hotel_owner where h_id = ? and passwd = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -116,7 +120,7 @@ public class DB
 		return null;
 	}
 	
-	//¸ğµç È£ÅÚÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//ëª¨ë“  í˜¸í…”ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Vector<Hotel> selectAllHotels() {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from hotel;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -140,7 +144,7 @@ public class DB
 		return null;
 	}
 	
-	//id·Î È£ÅÚ¿À³ÊÀÇ ÀÌ¸§À» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//idë¡œ í˜¸í…”ì˜¤ë„ˆì˜ ì´ë¦„ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static String getHotelOwnerNameByHostId(String id) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select name from hotel_owner where h_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -155,7 +159,7 @@ public class DB
 		return null;
 	}
 	
-	//¸ğµç È£ÅÚÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//hotelNameì˜ ë°©ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Vector<Room> selectRooms(String hotelname) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from room where hotel_name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -180,7 +184,7 @@ public class DB
 		return null;
 	}
 	
-	//id·Î È£ÅÚ¿À³ÊÀÇ ÀÌ¸§À» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//hotel_nameë¡œ í˜¸í…”ì˜¤ë„ˆì˜ ì´ë¦„ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static String getHotelOwnerNameByHotelName(String hotel_name) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select name from hotel_owner, hotel where hotel_owner.h_id = hotel.h_id and hotel_name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -195,7 +199,7 @@ public class DB
 		return null;
 	}
 	
-	//¿¹¾àÀ» db¿¡¼­ »èÁ¦ÇÏ´Â ¸Ş¼Òµå 
+	//ì˜ˆì•½ì„ dbì—ì„œ ì‚­ì œí•˜ëŠ” ë©”ì†Œë“œ 
 	public static int deleteReservation(String hotel_name, int room_num, String c_id, String start_date_of_use)
 	{
 		int cnt = 0;
@@ -214,7 +218,7 @@ public class DB
 		return cnt;
 	}
 	
-	//¿¹¾àÀ» db¿¡ »ğÀÔÇÏ´Â ¸Ş¼Òµå 
+	//ì˜ˆì•½ì„ dbì— ì‚½ì…í•˜ëŠ” ë©”ì†Œë“œ 
 	public static int insertReservation(Reservation reservation)
 	{
 		int cnt = 0;
@@ -222,13 +226,13 @@ public class DB
 			Vector<Reservation> otherReservations = DB.selectReservationsByRoom(DB.selectRoomByHotelNameAndRoomNum(reservation.hotel_name, reservation.room_num));
 			for(Reservation otherReservation: otherReservations)
 			{
-				//¿¹¾à-Á¾·áÀÏÀÌ ´Ù¸¥ »ç¶÷ÀÇ ½ÃÀÛÀÏº¸´Ù ÀÛ°Å³ª, ¿¹¾à-½ÃÀÛÀÏÀÌ ´Ù¸¥ »ç¶÷ÀÇ Á¾·áÀÏº¸´Ù Ä¿¾ßÇÑ´Ù. ±×·¡¾ß °ãÄ¡Áö ¾Ê´Â ³¯Â¥´Ù.
+				//ì˜ˆì•½-ì¢…ë£Œì¼ì´ ë‹¤ë¥¸ ì‚¬ëŒì˜ ì‹œì‘ì¼ë³´ë‹¤ ì‘ê±°ë‚˜, ì˜ˆì•½-ì‹œì‘ì¼ì´ ë‹¤ë¥¸ ì‚¬ëŒì˜ ì¢…ë£Œì¼ë³´ë‹¤ ì»¤ì•¼í•œë‹¤. ê·¸ë˜ì•¼ ê²¹ì¹˜ì§€ ì•ŠëŠ” ë‚ ì§œë‹¤.
 				if((reservation.end_of_use_date.compareTo(otherReservation.start_date_of_use) < 0) || (reservation.start_date_of_use.compareTo(otherReservation.end_of_use_date) > 0))
 					continue;
 				else
 					return -1;
 			}
-			//»ğÀÔ Àü ´Ù¸¥ »ç¶÷°ú °ãÄ¡´Â ±â°£ÀÌ¶ó¸é ¿¹¾àÇÏÁö ¸øÇÏ°Ô ÇÏ´Â ÄÚµå Ãß°¡ ¿ä¸Á
+			//ì‚½ì… ì „ ë‹¤ë¥¸ ì‚¬ëŒê³¼ ê²¹ì¹˜ëŠ” ê¸°ê°„ì´ë¼ë©´ ì˜ˆì•½í•˜ì§€ ëª»í•˜ê²Œ í•˜ëŠ” ì½”ë“œ ì¶”ê°€ ìš”ë§
 			PreparedStatement prStmt = con.prepareStatement("insert into reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people) "
 					+ "values(?, ?, ?, ?, ?, ?, ?, ?);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, reservation.hotel_name);
@@ -247,7 +251,7 @@ public class DB
 		return cnt;
 	}
 	
-	//ÇØ´çµÇ´Â È£ÅÚÀÌ¸§°ú ¹æ¹øÈ£ÀÇ ¹æÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//í•´ë‹¹ë˜ëŠ” í˜¸í…”ì´ë¦„ê³¼ ë°©ë²ˆí˜¸ì˜ ë°©ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Room selectRoomByHotelNameAndRoomNum(String hotel_name, int room_num) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from room where hotel_name = ? and room_num = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -270,7 +274,7 @@ public class DB
 		return null;
 	}
 	
-	//c_id¿¡ ÇØ´çÇÏ´Â ¿¹¾àµéÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//c_idì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Vector<Reservation> selectReservationsByC_id(String c_id) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from reservation where c_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -296,7 +300,7 @@ public class DB
 		return null;
 	}
 	
-	//room¿¡ ÇØ´çÇÏ´Â ¿¹¾àµéÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//roomì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Vector<Reservation> selectReservationsByRoom(Room room) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from reservation where hotel_name = ? and room_num = ? order by start_date_of_use;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -324,7 +328,34 @@ public class DB
 		return null;
 	}
 	
-	//c_id¿¡ ÇØ´çÇÏ´Â ¿¹¾àÃë¼ÒµéÀ» ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+	//í˜¸í…”ì˜¤ë„ˆì˜ ì´ë¦„ì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
+	public static Vector<Reservation> selectReservationsByName(String name) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from hotel, hotel_owner, reservation where hotel.h_id = hotel_owner.h_id and hotel.hotel_name = reservation.hotel_name and hotel_owner.name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, name);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<Reservation> reservations = new Vector<Reservation>();
+			while(rs.next()) {
+				String hotel_name = rs.getString("hotel_name");
+				int room_num = rs.getInt("room_num");
+				String c_id = rs.getString("c_id");
+				String reserve_date = rs.getString("reserve_date");
+				String start_date_of_use = rs.getString("start_date_of_use");
+				String end_of_use_date = rs.getString("end_of_use_date");
+				String payment_type = rs.getString("payment_type");
+				int number_of_people = rs.getInt("number_of_people");
+				Reservation reservation = new Reservation(hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people);
+				reservations.add(reservation);
+			}
+			return reservations;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//c_idì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ì·¨ì†Œë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
 	public static Vector<ReservationCancellation> selectReservationCancellationsByC_id(String c_id) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from reservation_cancellation where c_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -352,7 +383,36 @@ public class DB
 		return null;
 	}
 	
-	//¿¹¾àÃë¼Ò¸¦ db¿¡ »ğÀÔÇÏ´Â ¸Ş¼Òµå 
+	//í˜¸í…”ì˜¤ë„ˆì˜ nameì— í•´ë‹¹í•˜ëŠ” ì˜ˆì•½ì·¨ì†Œë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
+	public static Vector<ReservationCancellation> selectReservationCancellationsByName(String name) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select * from hotel, hotel_owner, reservation_cancellation where hotel.h_id = hotel_owner.h_id and hotel.hotel_name = reservation_cancellation.hotel_name and hotel_owner.name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, name);
+			ResultSet rs = prStmt.executeQuery();
+			Vector<ReservationCancellation> reservationCancellations = new Vector<ReservationCancellation>();
+			while(rs.next()) {
+				int cancellation_charge = rs.getInt("cancellation_charge");
+				String cancellation_date = rs.getString("cancellation_date");
+				String hotel_name = rs.getString("hotel_name");
+				int room_num = rs.getInt("room_num");
+				String c_id = rs.getString("c_id");
+				String reserve_date = rs.getString("reserve_date");
+				String start_date_of_use = rs.getString("start_date_of_use");
+				String end_of_use_date = rs.getString("end_of_use_date");
+				String payment_type = rs.getString("payment_type");
+				int number_of_people = rs.getInt("number_of_people");
+				ReservationCancellation reservationCancellation = new ReservationCancellation(cancellation_charge, cancellation_date, hotel_name, room_num, c_id, reserve_date, start_date_of_use, end_of_use_date, payment_type, number_of_people);
+				reservationCancellations.add(reservationCancellation);
+			}
+			return reservationCancellations;
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	//ì˜ˆì•½ì·¨ì†Œë¥¼ dbì— ì‚½ì…í•˜ëŠ” ë©”ì†Œë“œ 
 	public static int insertReservationCancellation(ReservationCancellation reservationCancellation)
 	{
 		int cnt = 0;
