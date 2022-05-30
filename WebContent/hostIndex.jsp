@@ -6,8 +6,14 @@
 if((session.getAttribute("loginRight") == null) || (session.getAttribute("loginRight").equals("customer")))
 	response.sendRedirect("index.jsp");
 String hostName = null; 
-if(session.getAttribute("hotelOwner") != null)
-	hostName = ((HotelOwner)session.getAttribute("hotelOwner")).get_name();
+String h_id = null;
+String cellphone = null;
+if(session.getAttribute("hotelOwner") != null){
+	HotelOwner hotelOwner = (HotelOwner)session.getAttribute("hotelOwner");
+	hostName = hotelOwner.get_name();
+	h_id = hotelOwner.get_h_id();
+	cellphone = hotelOwner.get_cellphone();
+}
 %>
 <html lang="ko">
    <head>
@@ -38,6 +44,8 @@ if(session.getAttribute("hotelOwner") != null)
       <div id="home">
          <br>
          <h1><%=hostName %>님 방문을 환영합니다.</h1>
+         <h4>id : <%=h_id %></h4>
+         <h4>전화번호 : <%=cellphone %></h4>
          <!-- Carousel -->
          <div  id="demo" class="carousel  slide" data-bs-ride="carousel">
             <!-- Indicators/dots -->
