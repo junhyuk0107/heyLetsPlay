@@ -144,6 +144,22 @@ public class DB
 		return null;
 	}
 	
+	
+	//id로 손님의 이름을 반환하는 메소드
+	public static String getCustomerNameByCustomerId(String id) {
+		try {
+			PreparedStatement prStmt = con.prepareStatement("select name from customer where c_id = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			prStmt.setString(1, id);
+			ResultSet rs = prStmt.executeQuery();
+			rs.next();
+			return rs.getString("name");
+		} catch(SQLException ex ) {
+			System.err.println("\n SQL error in selectAllHotels(): " + ex.getMessage() );
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
 	//id로 호텔오너의 이름을 반환하는 메소드
 	public static String getHotelOwnerNameByHostId(String id) {
 		try {
@@ -329,7 +345,7 @@ public class DB
 	}
 	
 	//호텔오너의 이름에 해당하는 예약들을 반환하는 메소드
-	public static Vector<Reservation> selectReservationsByName(String name) {
+	public static Vector<Reservation> selectReservationsByHotelOwnerName(String name) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from hotel, hotel_owner, reservation where hotel.h_id = hotel_owner.h_id and hotel.hotel_name = reservation.hotel_name and hotel_owner.name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, name);
@@ -384,7 +400,7 @@ public class DB
 	}
 	
 	//호텔오너의 name에 해당하는 예약취소들을 반환하는 메소드
-	public static Vector<ReservationCancellation> selectReservationCancellationsByName(String name) {
+	public static Vector<ReservationCancellation> selectReservationCancellationsByHotelOwnerName(String name) {
 		try {
 			PreparedStatement prStmt = con.prepareStatement("select * from hotel, hotel_owner, reservation_cancellation where hotel.h_id = hotel_owner.h_id and hotel.hotel_name = reservation_cancellation.hotel_name and hotel_owner.name = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			prStmt.setString(1, name);

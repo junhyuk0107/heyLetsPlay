@@ -39,7 +39,7 @@ if(session.getAttribute("hotelOwner") != null)
       <div class="row">
          <%
          DB.loadConnect();
-         Vector<Reservation> reservations = DB.selectReservationsByName(hostName);
+         Vector<Reservation> reservations = DB.selectReservationsByHotelOwnerName(hostName);
          for(Reservation reservation : reservations){
         	 out.println("<div class='col-sm-4'>");
         	 out.println("	<div class='card'>");
@@ -55,8 +55,7 @@ if(session.getAttribute("hotelOwner") != null)
     	     out.println("			<li class='list-group-item'>종료일: "+reservation.get_end_of_use_date()+"</li>");
     	     out.println("			<li class='list-group-item'>지불타입: "+reservation.get_payment_type()+"</li>");
     	     out.println("			<li class='list-group-item'>인원수: "+reservation.get_number_of_people()+"</li>");
-    	     out.println("			<li class='list-group-item'>업주: "+DB.getHotelOwnerNameByHotelName(reservation.get_hotel_name())+"</li>");
-    	     out.println("			<button class='btn btn-danger collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse"+reservations.indexOf(reservation)+"' aria-expanded='false'>예약 취소</button>");
+    	     out.println("			<li class='list-group-item'>예약 손님: "+DB.getCustomerNameByCustomerId(reservation.get_c_id())+"</li>");
     	     out.println("		</ul>");
         	 out.println("	</div>");
         	 out.println("</div>");
